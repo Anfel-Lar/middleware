@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const userService = require("../services/userService");
 
-const SECRET = "mysecret";
+const SECRET = process.env.JWT_SECRET
 
 async function login(req,res){
 

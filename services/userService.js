@@ -1,11 +1,12 @@
 const userModel = require("../models/userModel");
 
+
 function loginUser(email){
-  return userModel.findUserByEmail(email);
+  return users.find(email);
 }
 
 function listUsers(){
-  return userModel.getAllUsers();
+  return users;
 }
 
 module.exports = {

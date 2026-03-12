@@ -1,21 +1,14 @@
-const users = [
-  {
-    id: 1,
-    email: "admin@test.com",
-    password: "$2b$10$examplehash",
-    role: "admin"
-  }
-];
+// Import mongoose
+const mongoose = require("mongoose")
 
-function findUserByEmail(email){
-  return users.find(u => u.email === email);
-}
+// Schema
+const userModel = mongoose.Schema(
+    {
+         id: Number,
+         email: String,
+         password: String ,
+         role: { type: String, enum: ["admin", "user"]}  
+    }
+)
 
-function getAllUsers(){
-  return users;
-}
-
-module.exports = {
-  findUserByEmail,
-  getAllUsers
-};
+module.exports = mongoose.model("User" , userModel)
