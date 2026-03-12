@@ -1,4 +1,4 @@
-// Import mongoose
+// import mongoose
 const mongoose = require("mongoose")
 
 // Schema

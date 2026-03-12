@@ -1,14 +1,26 @@
+// import jwt / bcrypt / userService
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const userService = require("../services/userService");
 
 const SECRET = process.env.JWT_SECRET
 
+async function register(req , res) {
+  const {email ,password,role} = req.body
+
+  //hash password
+  const hashedPassword = await bcrypt.hash(password,10)
+
+  const user = await userService.createUser({email, password:hashedPassword , role})
+
+  res.json(user)
+}
+
 async function login(req,res){
 
   const {email,password} = req.body;
 
-  const user = userService.loginUser(email);
+  const user = await userService.loginUser(email);
 
   if(!user){
     return res.status(401).send("Invalid email");
@@ -29,14 +41,15 @@ async function login(req,res){
   res.json({token});
 }
 
-function getUsers(req,res){
+async function getUsers(req,res){
 
-  const users = userService.listUsers();
+  const users =await userService.listUsers();
 
   res.json(users);
 }
 
 module.exports = {
+  register ,
   login,
   getUsers
 };
